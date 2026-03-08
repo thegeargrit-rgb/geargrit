@@ -1,0 +1,105 @@
+import {defineField, defineType} from 'sanity'
+
+export default defineType({
+  name: 'review',
+  type: 'document',
+  title: 'Review',
+  fields: [
+    defineField({
+      name: 'title',
+      type: 'string',
+      title: 'Title',
+      validation: (Rule) => Rule.required().min(5),
+    }),
+    defineField({
+      name: 'slug',
+      type: 'slug',
+      title: 'Slug',
+      options: {source: 'title', maxLength: 96},
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'product',
+      type: 'reference',
+      to: [{type: 'product'}],
+      title: 'Product',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'author',
+      type: 'reference',
+      to: [{type: 'author'}],
+      title: 'Author',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'score',
+      type: 'number',
+      title: 'Score',
+      description: 'Score from 0 to 10',
+      validation: (Rule) => Rule.required().min(0).max(10),
+    }),
+    defineField({
+      name: 'verdict',
+      type: 'text',
+      title: 'Verdict',
+      rows: 3,
+      validation: (Rule) => Rule.required().min(80),
+    }),
+    defineField({
+      name: 'pros',
+      type: 'array',
+      of: [{type: 'string'}],
+      title: 'Pros',
+      validation: (Rule) => Rule.required().min(1),
+    }),
+    defineField({
+      name: 'cons',
+      type: 'array',
+      of: [{type: 'string'}],
+      title: 'Cons',
+      validation: (Rule) => Rule.required().min(1),
+    }),
+    defineField({
+      name: 'body',
+      type: 'array',
+      title: 'Review Body',
+      of: [{type: 'block'}],
+      validation: (Rule) => Rule.required().min(1),
+    }),
+    defineField({
+      name: 'alternatives',
+      title: 'Alternatives',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'product'}]}],
+    }),
+    defineField({
+      name: 'faqs',
+      title: 'FAQs',
+      type: 'array',
+      of: [{type: 'faqItem'}],
+    }),
+    defineField({
+      name: 'affiliateDisclosure',
+      title: 'Affiliate Disclosure',
+      type: 'affiliateDisclosure',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'seo',
+      title: 'SEO',
+      type: 'seo',
+    }),
+    defineField({
+      name: 'publishedAt',
+      type: 'datetime',
+      title: 'Published Date',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'updatedAt',
+      type: 'datetime',
+      title: 'Updated Date',
+    }),
+  ],
+})

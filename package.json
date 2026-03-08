@@ -6,7 +6,7 @@
     "dev": "turbo dev",
     "build": "turbo build",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "format": "pnpm exec prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky"
   },
   "devDependencies": {
@@ -20,12 +20,8 @@
     "pnpm": ">=9"
   },
   "lint-staged": {
-    "**/*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "**/*.{json,md,css}": [
-      "prettier --write"
+    "**/*.{ts,tsx,json,md,css}": [
+      "pnpm exec prettier --write --ignore-unknown"
     ]
   }
 }
