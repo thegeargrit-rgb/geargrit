@@ -1,4 +1,4 @@
-# GearGrit.com — Session Log
+# GearGrit.com â€” Session Log
 
 > This file tracks what was done in each AI coding session.
 > At the end of every session, ask AI: "Summarize what we did today for my SESSION_LOG.md"
@@ -11,9 +11,9 @@
 Copy this template and fill it in:
 
 ```
-## Session [NUMBER] — [DATE]
+## Session [NUMBER] â€” [DATE]
 **Duration:** ~X hours
-**Milestone:** M[N] — [Milestone Name]
+**Milestone:** M[N] â€” [Milestone Name]
 **Branch:** feat/M[N]-[description]
 
 ### What We Did
@@ -34,10 +34,10 @@ Copy this template and fill it in:
 
 ---
 
-## Session 1 — 2026-03-08
+## Session 1 â€” 2026-03-08
 
 **Duration:** ~1 hour
-**Milestone:** M1 — Foundation & Design System
+**Milestone:** M1 â€” Foundation & Design System
 **Branch:** main (docs setup)
 
 ### What We Did
@@ -198,3 +198,47 @@ Copy this template and fill it in:
 ### Blockers / Issues
 
 - None critical. Continue checkpoint tagging discipline and keep env secrets out of commits.
+
+## Session 5 - 2026-03-09
+
+**Duration:** ~6 hours  
+**Milestone:** M3 - MVP Launch (technical delivery + deployment verification)  
+**Branch:** main
+
+### What We Did
+
+- Completed M3 technical blocks and deployed production updates to Vercel.
+- Added production smoke-test automation script and ran checklist validation.
+- Fixed admin auth env mismatch in `proxy.ts` and re-verified deployed behavior.
+- Wired blog routes to live Sanity CMS data and rendered article body content.
+- Wired brand and subcategory dynamic routes to Sanity taxonomy/content.
+- Extended Sanity schema with new `blogArticle` document type.
+- Updated sitemap to include dynamic blog, brand, and subcategory URLs.
+
+### Decisions Made
+
+- Keep `geargrit.vercel.app` as active domain until MVP content is fully finalized.
+- Block accidental indexation of placeholder routes while enabling indexation for real CMS-backed pages.
+- Use checkpoint tags after every validated production milestone.
+
+### Files Created/Modified (highlights)
+
+- `apps/web/app/blog/*`
+- `apps/web/app/brands/[slug]/page.tsx`
+- `apps/web/app/subcategories/[slug]/page.tsx`
+- `apps/web/lib/sanity/{queries,loaders,types}.ts`
+- `apps/web/proxy.ts`
+- `scripts/smoke-vercel.ps1`
+- `geargrit-sanity/schemaTypes/blogArticle.ts`
+- `geargrit-sanity/schemaTypes/index.ts`
+- `docs/M3_RELEASE_CHECKLIST.md`
+- `docs/M3_ROUTE_QA_SWEEP_2026-03-08.md`
+
+### Next Session Should Start With
+
+- Final M3 content QA on key templates after more content publishing.
+- Prepare M3 closeout docs and target `v1.0.0` release checklist.
+
+### Blockers / Issues
+
+- None critical. Continue publishing high-quality Sanity content before final M3 closeout.
