@@ -18,9 +18,9 @@ type SanityQueryResponse<T> = {
 function buildSanityQueryUrl(query: string, params?: QueryParams): string {
   const queryParams = new URLSearchParams({ query });
 
-  if (params) {
+  if (params && Object.keys(params).length > 0) {
     for (const [key, value] of Object.entries(params)) {
-      queryParams.set(`$${key}`, String(value));
+      queryParams.set(`$${key}`, JSON.stringify(value));
     }
   }
 
@@ -41,8 +41,9 @@ export async function runSanityQuery<T>(
   });
 
   if (!response.ok) {
+    const errorBody = await response.text();
     throw new Error(
-      `Sanity query failed (${response.status}): ${response.statusText}`,
+      `Sanity query failed (${response.status}): ${response.statusText}. ${errorBody}`,
     );
   }
 

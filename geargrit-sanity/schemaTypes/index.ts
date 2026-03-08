@@ -1,3 +1,4 @@
+import affiliateLink from './affiliateLink'
 import author from './author'
 import brand from './brand'
 import category from './category'
@@ -15,6 +16,7 @@ export const schemaTypes = [
   faqItem,
   productSpec,
   seo,
+  affiliateLink,
   author,
   brand,
   category,

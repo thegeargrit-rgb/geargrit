@@ -83,7 +83,7 @@ export default defineType({
       name: 'affiliateSlug',
       type: 'string',
       title: 'Affiliate Slug',
-      description: 'Used for /go/[slug] redirects.',
+      description: 'Used for /go/[slug] redirects. Must match an Affiliate Link document slug.',
       validation: (Rule) => Rule.required().regex(/^[a-z0-9-]+$/),
     }),
     defineField({
