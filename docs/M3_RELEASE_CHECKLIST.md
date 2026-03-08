@@ -1,6 +1,6 @@
 # M3 Release Checklist (Technical)
 
-Date: 2026-03-08
+Date: 2026-03-09
 
 ## Scope
 
@@ -13,16 +13,17 @@ This checklist tracks technical readiness for M3 MVP launch in `apps/web`.
 - [x] Category listing and detail routes (`/categories`, `/categories/[slug]`)
 - [x] Review listing and detail routes (`/reviews`, `/reviews/[slug]`)
 - [x] Guide listing and detail routes (`/guides`, `/guides/[slug]`)
-- [x] Blog index and article placeholder routes (`/blog`, `/blog/[slug]`)
-- [x] Brand and subcategory placeholder templates (`/brands/[slug]`, `/subcategories/[slug]`)
-- [x] Search placeholder route (`/search`)
+- [x] Blog index and article routes (`/blog`, `/blog/[slug]`) CMS-backed
+- [x] Brand route (`/brands/[slug]`) CMS-backed
+- [x] Subcategory route (`/subcategories/[slug]`) CMS-backed
+- [x] Search placeholder route (`/search`) with `noindex`
 
 ## Trust, Legal, and UX Safety
 
 - [x] About page (`/about`)
 - [x] Contact page (`/contact`)
 - [x] Affiliate disclosure page (`/affiliate-disclosure`)
-- [x] Privacy and terms placeholders (`/privacy`, `/terms`)
+- [x] Privacy and terms pages (`/privacy`, `/terms`)
 - [x] Custom 404 page (`/not-found` route handler)
 - [x] Breadcrumb component integrated into slug detail pages
 
@@ -30,17 +31,15 @@ This checklist tracks technical readiness for M3 MVP launch in `apps/web`.
 
 - [x] `/go/[slug]` redirect pipeline with logging and fallback
 - [x] Affiliate CTA component on review detail pages
-- [x] Affiliate disclosure block on monetized template
-- [x] Admin affiliate health dashboard and protection
+- [x] Affiliate disclosure block on monetized templates
+- [x] Admin affiliate health dashboard and route protection
 
 ## SEO and Discoverability
 
 - [x] Canonical metadata helper (`buildPageMetadata`) used broadly
 - [x] Canonical `alternates` on dynamic slug routes
 - [x] `robots.ts` present
-- [x] `sitemap.ts` present and includes primary route groups
-- [x] Search placeholder marked `noindex`
-- [x] Placeholder dynamic templates constrained with `dynamicParams = false`
+- [x] `sitemap.ts` present and includes primary dynamic route groups
 
 ## Deployment and Platform Readiness
 
@@ -48,6 +47,8 @@ This checklist tracks technical readiness for M3 MVP launch in `apps/web`.
 - [x] Health endpoint (`/api/health`)
 - [x] Cloudinary delivery helper + next/image host config
 - [x] `.env.example` template
+- [x] `.vercelignore` added to prevent oversize deploy uploads
+- [x] Production smoke script (`scripts/smoke-vercel.ps1`)
 
 ## Contact and Communication
 
@@ -59,13 +60,13 @@ This checklist tracks technical readiness for M3 MVP launch in `apps/web`.
 ## Validation Snapshot
 
 - [x] `npm run lint` passes in `apps/web`
-- [ ] `npm run build` passes in current environment
-  - Blocker: font fetch from Google (`Inter`, `Sora`) fails in restricted network runtime.
+- [x] Deployed smoke test passes on `https://geargrit.vercel.app`
+- [ ] `npm run build` pass captured in unrestricted network runtime
+  - Prior local blocker: Google Font fetch in restricted environment.
 
 ## Remaining for Final M3 Exit
 
-- [ ] Populate real launch content set in Sanity (non-placeholder pages).
-- [ ] Replace placeholder template routes with CMS-backed data and publish gates.
-- [ ] Configure production env values in Vercel and run deployed smoke test.
-- [ ] Final manual UX QA across desktop/mobile on key routes.
-- [ ] Create final M3 release tag after full content and deployment verification.
+- [ ] Publish target launch content volume in Sanity for MVP release.
+- [ ] Final manual QA across mobile + desktop on all priority routes.
+- [ ] Confirm production env parity for all required integrations.
+- [ ] Freeze M3 scope and create `v1.0.0-rc` then `v1.0.0` release tags.
