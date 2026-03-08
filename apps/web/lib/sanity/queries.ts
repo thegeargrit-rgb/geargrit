@@ -213,6 +213,7 @@ export const BLOG_BY_SLUG_QUERY = /* groq */ `
   title,
   slug,
   excerpt,
+  body,
   publishedAt,
   updatedAt,
   seo,

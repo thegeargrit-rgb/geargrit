@@ -30,23 +30,32 @@ export default async function BlogIndexPage() {
           <div className="grid gap-3">
             {data.articles.map((article) => (
               <Card key={article._id}>
-                <h2 className="mb-2 text-lg font-semibold">{article.title}</h2>
+                <h2 className="mb-2 text-lg font-semibold">
+                  <Link
+                    href={`/blog/${article.slug.current}`}
+                    className="underline-offset-2 hover:underline"
+                  >
+                    {article.title}
+                  </Link>
+                </h2>
                 {article.excerpt ? (
                   <p className="mb-3 text-sm text-muted-foreground">
                     {article.excerpt}
                   </p>
                 ) : null}
                 <div className="mb-3 text-xs text-muted-foreground">
-                  {article.authorName ? `By ${article.authorName}` : "By GearGrit"}
+                  {article.authorName
+                    ? `By ${article.authorName}`
+                    : "By GearGrit"}
                   {article.publishedAt
-                    ? ` • ${new Date(article.publishedAt).toLocaleDateString()}`
+                    ? ` - ${new Date(article.publishedAt).toLocaleDateString()}`
                     : ""}
                 </div>
                 <Link
                   href={`/blog/${article.slug.current}`}
                   className={cn(buttonVariants({ variant: "outline" }))}
                 >
-                  Read Article
+                  Read Full Article
                 </Link>
               </Card>
             ))}
@@ -54,7 +63,8 @@ export default async function BlogIndexPage() {
         ) : (
           <Card>
             <p className="text-sm text-muted-foreground">
-              No blog articles published yet. Add `blogArticle` documents in Sanity.
+              No blog articles published yet. Add `blogArticle` documents in
+              Sanity.
             </p>
           </Card>
         )}

@@ -130,11 +130,25 @@ export type GuidePageData = {
   };
 };
 
+export type PortableTextBlock = {
+  _key: string;
+  _type: "block";
+  style?: string;
+  listItem?: "bullet" | "number";
+  level?: number;
+  children?: Array<{
+    _key: string;
+    _type: "span";
+    text: string;
+  }>;
+};
+
 export type BlogArticlePageData = {
   _id: string;
   title: string;
   slug: SanitySlug;
   excerpt?: string;
+  body?: PortableTextBlock[];
   publishedAt?: string;
   updatedAt?: string;
   author?: {
