@@ -47,7 +47,9 @@ Use this prompt to start every session:
 ```
 geargrit/
 ├── apps/
-│   └── web/               # Next.js 16 app (App Router, TypeScript, Tailwind v4)
+│   └── web/               # Next.js 16 app (App Router, TypeScript, Tailwind v4, shadcn/ui)
+│       ├── components/ui/ # shadcn/ui components (button.tsx added)
+│       └── lib/utils.ts   # shadcn/ui utility (cn helper)
 ├── packages/
 │   ├── db/                # Supabase migrations + generated types (shell)
 │   └── config/            # Shared ESLint, TS config (shell)
@@ -79,7 +81,7 @@ geargrit/
 - [x] Setup Next.js 16 app (App Router, TypeScript strict, pnpm) ✅ 2026-03-08
 - [x] Setup Turborepo monorepo ✅ 2026-03-08
 - [x] Install + configure Tailwind CSS v4 ✅ 2026-03-08 (auto-installed with Next.js 16)
-- [ ] Install + configure shadcn/ui
+- [x] Install + configure shadcn/ui ✅ 2026-03-08 (Radix, default preset, CSS variables)
 - [ ] Setup Sanity.io project + studio
 - [ ] Setup Supabase project + base migrations
 - [ ] Setup GitHub Actions CI pipeline
@@ -125,6 +127,7 @@ geargrit/
 | 2026-03-08 | Tailwind v4 auto-installed | Next.js 16 scaffold included Tailwind v4 by default |
 | 2026-03-08 | turbo.json uses tasks not pipeline | Turbo v2 breaking change — renamed pipeline to tasks |
 | 2026-03-08 | packageManager field required | Turbo v2 requires packageManager in root package.json |
+| 2026-03-08 | shadcn/ui Radix + default preset | Full control over brand colors; presets don't match GearGrit design |
 
 ---
 
