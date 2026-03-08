@@ -54,7 +54,7 @@ geargrit/
 │   ├── db/                # Supabase migrations + generated types (shell)
 │   └── config/            # Shared ESLint, TS config (shell)
 ├── docs/                  # ADRs, context, session logs
-├── .github/               # CI/CD workflows, PR template
+├── .github/               # CI/CD workflows, PR template, Husky hooks
 └── scripts/               # Seed scripts, sitemap generator (coming soon)
 ```
 
@@ -82,17 +82,17 @@ geargrit/
 - [x] Setup Turborepo monorepo ✅ 2026-03-08
 - [x] Install + configure Tailwind CSS v4 ✅ 2026-03-08 (auto-installed with Next.js 16)
 - [x] Install + configure shadcn/ui ✅ 2026-03-08 (Radix, default preset, CSS variables)
+- [x] Setup ESLint + Prettier + Husky pre-commit hooks ✅ 2026-03-08
+- [ ] Design tokens: brand colors, typography, spacing
+- [ ] Build core components: Header, Footer, Button, Card, Badge, ScoreBadge
+- [ ] Build homepage shell (no real content yet)
 - [ ] Setup Sanity.io project + studio
 - [ ] Setup Supabase project + base migrations
 - [ ] Setup GitHub Actions CI pipeline
 - [ ] Configure Vercel deployment (staging + production)
 - [ ] Setup Cloudinary account + next/image config
-- [ ] Build core components: Header, Footer, Button, Card, Badge, ScoreBadge
-- [ ] Build homepage shell (no real content yet)
 - [ ] Configure next-sitemap
 - [ ] Configure robots.txt
-- [ ] Setup ESLint + Prettier + Husky pre-commit hooks
-- [ ] Design tokens: brand colors, typography, spacing
 
 ---
 
@@ -128,6 +128,7 @@ geargrit/
 | 2026-03-08 | turbo.json uses tasks not pipeline | Turbo v2 breaking change — renamed pipeline to tasks |
 | 2026-03-08 | packageManager field required | Turbo v2 requires packageManager in root package.json |
 | 2026-03-08 | shadcn/ui Radix + default preset | Full control over brand colors; presets don't match GearGrit design |
+| 2026-03-08 | Husky v9 + lint-staged v15 | Pre-commit hooks: ESLint + Prettier on ts/tsx, Prettier on md/json/css |
 
 ---
 
