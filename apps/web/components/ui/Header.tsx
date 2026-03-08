@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/Button";
+import { buttonVariants } from "@/components/ui/button-variants";
 
 const headerVariants = cva(
   "w-full flex items-center justify-between px-5 py-4 bg-primary text-primary-foreground shadow-lg",

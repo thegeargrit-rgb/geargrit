@@ -4,7 +4,7 @@ import { Footer } from "@/components/ui/Footer";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { ScoreBadge } from "@/components/ui/ScoreBadge";
-import { buttonVariants } from "@/components/ui/Button";
+import { buttonVariants } from "@/components/ui/button-variants";
 import { cn } from "@/lib/utils";
 import { getHomePageData } from "@/lib/sanity/loaders";
 

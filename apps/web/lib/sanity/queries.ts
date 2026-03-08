@@ -27,6 +27,52 @@ export const HOMEPAGE_QUERY = /* groq */ `
 }
 `;
 
+export const CATEGORIES_LIST_QUERY = /* groq */ `
+{
+  "badminton": *[_type == "category" && niche == "badminton"] | order(title asc){
+    _id,
+    title,
+    slug,
+    niche,
+    description
+  },
+  "trekking": *[_type == "category" && niche == "trekking"] | order(title asc){
+    _id,
+    title,
+    slug,
+    niche,
+    description
+  }
+}
+`;
+
+export const REVIEWS_LIST_QUERY = /* groq */ `
+{
+  "reviews": *[_type == "review"] | order(publishedAt desc){
+    _id,
+    title,
+    slug,
+    score,
+    publishedAt,
+    verdict,
+    "productTitle": product->title
+  }
+}
+`;
+
+export const GUIDES_LIST_QUERY = /* groq */ `
+{
+  "guides": *[_type == "guide"] | order(publishedAt desc){
+    _id,
+    title,
+    slug,
+    guideType,
+    excerpt,
+    publishedAt
+  }
+}
+`;
+
 export const CATEGORY_BY_SLUG_QUERY = /* groq */ `
 *[_type == "category" && slug.current == $slug][0]{
   _id,

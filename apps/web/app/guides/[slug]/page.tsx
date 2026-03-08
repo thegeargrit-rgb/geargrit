@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
 import { Card } from "@/components/ui/Card";
-import { buttonVariants } from "@/components/ui/Button";
+import { buttonVariants } from "@/components/ui/button-variants";
 import { cn } from "@/lib/utils";
 import { getGuidePageData } from "@/lib/sanity/loaders";
 

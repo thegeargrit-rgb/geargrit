@@ -35,6 +35,19 @@ export type HomePageData = {
   topCategories: CategorySummary[];
 };
 
+export type CategoriesListData = {
+  badminton: CategorySummary[];
+  trekking: CategorySummary[];
+};
+
+export type ReviewsListData = {
+  reviews: ReviewSummary[];
+};
+
+export type GuidesListData = {
+  guides: GuideSummary[];
+};
+
 export type CategoryPageData = {
   _id: string;
   title: string;
