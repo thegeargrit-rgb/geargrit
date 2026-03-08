@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Inter, Sora } from "next/font/google";
 import { SITE_URL } from "@/lib/seo";
 import "./globals.css";
@@ -6,13 +6,13 @@ import "./globals.css";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-body",
-  display: "swap",
+  display: "optional",
 });
 
 const sora = Sora({
   subsets: ["latin"],
   variable: "--font-heading",
-  display: "swap",
+  display: "optional",
 });
 
 export const metadata: Metadata = {

@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
@@ -125,5 +125,97 @@
   }
   html {
     @apply font-sans;
+    overflow-y: scroll;
   }
 }
+@keyframes gg-fade-up {
+  from {
+    opacity: 0;
+    
+  }
+  to {
+    opacity: 1;
+    
+  }
+}
+
+@layer utilities {
+  .gg-fade-up {
+    animation: gg-fade-up 560ms cubic-bezier(0.2, 0.65, 0.15, 1) both;
+  }
+
+  .gg-delay-1 {
+    animation-delay: 90ms;
+  }
+
+  .gg-delay-2 {
+    animation-delay: 170ms;
+  }
+
+  .gg-delay-3 {
+    animation-delay: 250ms;
+  }
+
+  .gg-hover-lift {
+    transition:
+      transform 220ms ease,
+      box-shadow 220ms ease,
+      border-color 220ms ease;
+  }
+
+  .gg-hover-lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px -18px rgb(15 23 42 / 0.5);
+    border-color: color-mix(in oklab, var(--color-border), var(--color-primary) 30%);
+  }
+
+  .gg-soft-glow {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .gg-soft-glow::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 260ms ease;
+    background:
+      radial-gradient(120% 110% at 0% 0%, rgb(59 130 246 / 0.12), transparent 60%),
+      radial-gradient(110% 100% at 100% 100%, rgb(16 185 129 / 0.1), transparent 55%);
+    z-index: -1;
+  }
+
+  .gg-soft-glow:hover::after {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gg-fade-up {
+      animation: gg-fade-up 560ms cubic-bezier(0.2, 0.65, 0.15, 1) both;
+    }
+
+    .gg-hover-lift {
+      transition: none;
+    }
+
+    .gg-hover-lift:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+}
+
+@layer utilities {
+  .gg-content-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 900px;
+  }
+}
+
+
+
+
+
