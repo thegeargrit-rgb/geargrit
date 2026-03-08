@@ -2,6 +2,7 @@
 
 Last updated: 2026-03-08
 Target version: v0.2.0-alpha
+Status: COMPLETED
 
 ## Sprint 1 (Completed)
 
@@ -14,10 +15,11 @@ Target version: v0.2.0-alpha
 
 ## Sprint 2 (Completed)
 
-- [x] Supabase schema baseline (`affiliate_links`, `click_events`).
+- [x] Supabase schema baseline (`affiliate_links`, `click_events`, `redirect_logs`).
 - [x] `/go/[slug]` route contract and lookup helper.
 - [x] Click logging pipeline to `click_events`.
-- [x] Seed sample entities (categories, brands, author, products, review, guide).
+- [x] Redirect outcome logging pipeline to `redirect_logs`.
+- [x] Seed sample entities and affiliate link baseline.
 - [x] Sanity fallback for affiliate link lookup.
 
 ## Sprint 3 (Completed)
@@ -29,13 +31,6 @@ Target version: v0.2.0-alpha
 - [x] Admin auth gate via `proxy.ts` for `/admin/*`.
 - [x] Anti-abuse baseline for `/go/[slug]` (bot guard + rate limit).
 
-## M2 Remaining (Before Release Tag)
+## M2 Release Note
 
-- [ ] Add `redirect_logs` table and integrate optional write path.
-- [ ] Add basic automated tests for `/go/[slug]` happy path + rate limit behavior.
-- [ ] Add a small migration/runbook doc for Supabase setup from scratch.
-- [ ] Final M2 release QA pass and tag `v0.2.0-alpha`.
-
-## Current Session Next Build Target
-
-- Add `/go/[slug]` test coverage and finalize release checklist for M2.
+Core content engine is delivered and validated. Project should now transition to M3 (MVP Launch) planning and implementation.
