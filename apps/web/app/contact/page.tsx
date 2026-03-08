@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
 import { Card } from "@/components/ui/Card";
+import { ContactForm } from "@/components/ui/ContactForm";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { buildPageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
@@ -39,6 +40,16 @@ export default function ContactPage() {
               For partnerships, collaborations, and media requests, contact us with clear context and expected timelines.
             </p>
             <p className="font-mono text-sm">partners@thegeargrit.com</p>
+          </Card>
+        </section>
+
+        <section className="mb-6">
+          <Card>
+            <h2 className="mb-2 text-xl font-semibold">Send Message</h2>
+            <p className="mb-4 text-sm text-muted-foreground">
+              Use this form for corrections, editorial feedback, and partnership inquiries.
+            </p>
+            <ContactForm />
           </Card>
         </section>
 

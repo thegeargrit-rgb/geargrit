@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
 import { Card } from "@/components/ui/Card";
+import { FaqAccordion } from "@/components/ui/FaqAccordion";
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { absoluteUrl } from "@/lib/seo";
 import { cn } from "@/lib/utils";
@@ -51,6 +53,14 @@ export default async function GuidePage({ params }: Props) {
     <>
       <Header />
       <main className="mx-auto my-8 max-w-3xl p-4">
+        <Breadcrumbs
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Guides", href: "/guides" },
+            { label: guide.title },
+          ]}
+        />
+
         <p className="mb-2 text-xs uppercase tracking-wide text-muted-foreground">
           {guide.guideType}
         </p>
@@ -96,6 +106,22 @@ export default async function GuidePage({ params }: Props) {
             </Card>
           )}
         </section>
+
+        <section className="mt-8">
+          <h2 className="mb-3 text-xl font-semibold">FAQ</h2>
+          <FaqAccordion
+            items={[
+              {
+                question: "How often is this guide updated?",
+                answer: "Guides are reviewed periodically when product availability or recommendations change.",
+              },
+              {
+                question: "Do guides include affiliate links?",
+                answer: "Some pages may include affiliate links. We disclose this clearly and keep recommendations reader-first.",
+              },
+            ]}
+          />
+</section>
       </main>
       <Footer />
     </>

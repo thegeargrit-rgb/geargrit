@@ -29,24 +29,22 @@ export function Header({ className, sticky, ...props }: HeaderProps) {
   return (
     <header className={cn(headerVariants({ sticky, className }))} {...props}>
       <div className="font-heading text-lg font-extrabold tracking-tight">
-        GearGrit
+        <Link href="/">GearGrit</Link>
       </div>
-      <nav className="flex items-center gap-4">
-        <Link href="/" className={cn(buttonVariants({ variant: "link" }))}>
-          Home
+      <nav className="flex flex-wrap items-center gap-3">
+        <Link href="/badminton" className={cn(buttonVariants({ variant: "link" }))}>
+          Badminton
         </Link>
-        <Link
-          href="/reviews"
-          className={cn(buttonVariants({ variant: "link" }))}
-        >
+        <Link href="/trekking" className={cn(buttonVariants({ variant: "link" }))}>
+          Trekking
+        </Link>
+        <Link href="/reviews" className={cn(buttonVariants({ variant: "link" }))}>
           Reviews
         </Link>
-        <Link
-          href="/guides"
-          className={cn(buttonVariants({ variant: "link" }))}
-        >
+        <Link href="/guides" className={cn(buttonVariants({ variant: "link" }))}>
           Guides
         </Link>
+        <Link href="/search" className={cn(buttonVariants({ variant: "link" }))}>`r`n          Search`r`n        </Link>`r`n        <Link href="/blog" className={cn(buttonVariants({ variant: "link" }))}>`r`n          Blog`r`n        </Link>
         <Link href="/about" className={cn(buttonVariants({ variant: "link" }))}>
           About
         </Link>

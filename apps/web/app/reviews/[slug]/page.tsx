@@ -3,7 +3,11 @@ import { notFound } from "next/navigation";
 import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
 import { Card } from "@/components/ui/Card";
+import { AffiliateCta } from "@/components/ui/AffiliateCta";
+import { AffiliateDisclosure } from "@/components/ui/AffiliateDisclosure";
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { ScoreBadge } from "@/components/ui/ScoreBadge";
+import { FaqAccordion } from "@/components/ui/FaqAccordion";
 import { absoluteUrl } from "@/lib/seo";
 import { getReviewPageData } from "@/lib/sanity/loaders";
 
@@ -49,6 +53,14 @@ export default async function ReviewPage({ params }: Props) {
     <>
       <Header />
       <main className="mx-auto my-8 max-w-3xl p-4">
+        <Breadcrumbs
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Reviews", href: "/reviews" },
+            { label: review.title },
+          ]}
+        />
+
         <h1 className="mb-3 text-3xl font-heading font-bold">{review.title}</h1>
         <div className="mb-4 flex items-center gap-2">
           <ScoreBadge score={review.score} color="success" />
@@ -57,9 +69,16 @@ export default async function ReviewPage({ params }: Props) {
 
         <Card className="mb-5">
           <h2 className="mb-2 text-lg font-semibold">Verdict</h2>
-          <p className="text-sm text-muted-foreground">
+          <p className="mb-4 text-sm text-muted-foreground">
             {review.verdict ?? "Verdict coming soon."}
           </p>
+
+          {review.product?.affiliateSlug ? (
+            <div className="grid gap-2">
+              <AffiliateCta slug={review.product.affiliateSlug} />
+              <AffiliateDisclosure />
+            </div>
+          ) : null}
         </Card>
 
         <div className="mb-5 grid gap-3 md:grid-cols-2">
@@ -102,7 +121,23 @@ export default async function ReviewPage({ params }: Props) {
           <p className="text-sm text-muted-foreground">
             Author: {review.author?.name ?? "Unknown author"}
           </p>
-        </Card>
+</Card>
+
+        <section className="mt-8">
+          <h2 className="mb-3 text-xl font-semibold">FAQ</h2>
+          <FaqAccordion
+            items={[
+              {
+                question: "How should I interpret the score?",
+                answer: "The score is a quick summary of overall value and suitability, but always read pros, cons, and verdict for context.",
+              },
+              {
+                question: "Do prices in reviews stay constant?",
+                answer: "No. Market prices change frequently. Use the price CTA to check current pricing before purchase.",
+              },
+            ]}
+          />
+        </section>
       </main>
       <Footer />
     </>

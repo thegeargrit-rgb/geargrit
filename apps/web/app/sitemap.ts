@@ -21,9 +21,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date().toISOString();
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: absoluteUrl("/"), lastModified: now, priority: 1 },
+    { url: absoluteUrl("/badminton"), lastModified: now, priority: 0.9 },
+    { url: absoluteUrl("/trekking"), lastModified: now, priority: 0.9 },
     { url: absoluteUrl("/categories"), lastModified: now, priority: 0.9 },
     { url: absoluteUrl("/reviews"), lastModified: now, priority: 0.9 },
     { url: absoluteUrl("/guides"), lastModified: now, priority: 0.9 },
+    { url: absoluteUrl("/search"), lastModified: now, priority: 0.7 },
+    { url: absoluteUrl("/blog"), lastModified: now, priority: 0.7 },
     { url: absoluteUrl("/about"), lastModified: now, priority: 0.5 },
     { url: absoluteUrl("/contact"), lastModified: now, priority: 0.5 },
     {
@@ -65,7 +69,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     return [...staticRoutes, ...categoryUrls, ...reviewUrls, ...guideUrls];
   } catch {
-    // Keep sitemap available even when CMS calls fail.
     return staticRoutes;
   }
 }

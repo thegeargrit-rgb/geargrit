@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
 import { Card } from "@/components/ui/Card";
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { absoluteUrl } from "@/lib/seo";
 import { cn } from "@/lib/utils";
@@ -51,6 +52,14 @@ export default async function CategoryPage({ params }: Props) {
     <>
       <Header />
       <main className="mx-auto my-8 max-w-3xl p-4">
+        <Breadcrumbs
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Categories", href: "/categories" },
+            { label: category.title },
+          ]}
+        />
+
         <p className="mb-2 text-xs uppercase tracking-wide text-muted-foreground">
           {category.niche}
         </p>
