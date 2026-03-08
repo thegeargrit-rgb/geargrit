@@ -1,8 +1,11 @@
 import type { MetadataRoute } from "next";
 import {
+  getBlogListData,
+  getBrandsListData,
   getCategoriesListData,
   getGuidesListData,
   getReviewsListData,
+  getSubcategoriesListData,
 } from "@/lib/sanity/loaders";
 import { absoluteUrl } from "@/lib/seo";
 
@@ -40,11 +43,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   try {
-    const [categories, reviews, guides] = await Promise.all([
-      getCategoriesListData(),
-      getReviewsListData(),
-      getGuidesListData(),
-    ]);
+    const [categories, subcategories, reviews, guides, blog, brands] =
+      await Promise.all([
+        getCategoriesListData(),
+        getSubcategoriesListData(),
+        getReviewsListData(),
+        getGuidesListData(),
+        getBlogListData(),
+        getBrandsListData(),
+      ]);
 
     const categoryUrls: MetadataRoute.Sitemap = [
       ...categories.badminton,
@@ -54,6 +61,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: now,
       priority: 0.8,
     }));
+
+    const subcategoryUrls: MetadataRoute.Sitemap =
+      subcategories.subcategories.map((subcategory) => ({
+        url: absoluteUrl(`/subcategories/${subcategory.slug.current}`),
+        lastModified: now,
+        priority: 0.7,
+      }));
 
     const reviewUrls: MetadataRoute.Sitemap = reviews.reviews.map((review) => ({
       url: absoluteUrl(`/reviews/${review.slug.current}`),
@@ -67,7 +81,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     }));
 
-    return [...staticRoutes, ...categoryUrls, ...reviewUrls, ...guideUrls];
+    const blogUrls: MetadataRoute.Sitemap = blog.articles.map((article) => ({
+      url: absoluteUrl(`/blog/${article.slug.current}`),
+      lastModified: toIsoDate(article.publishedAt),
+      priority: 0.7,
+    }));
+
+    const brandUrls: MetadataRoute.Sitemap = brands.brands.map((brand) => ({
+      url: absoluteUrl(`/brands/${brand.slug.current}`),
+      lastModified: now,
+      priority: 0.6,
+    }));
+
+    return [
+      ...staticRoutes,
+      ...categoryUrls,
+      ...subcategoryUrls,
+      ...reviewUrls,
+      ...guideUrls,
+      ...blogUrls,
+      ...brandUrls,
+    ];
   } catch {
     return staticRoutes;
   }

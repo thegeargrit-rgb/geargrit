@@ -29,14 +29,26 @@ export const HOMEPAGE_QUERY = /* groq */ `
 
 export const CATEGORIES_LIST_QUERY = /* groq */ `
 {
-  "badminton": *[_type == "category" && niche == "badminton"] | order(title asc){
+  "badminton": *[_type == "category" && niche == "badminton" && !defined(parentCategory)] | order(title asc){
     _id,
     title,
     slug,
     niche,
     description
   },
-  "trekking": *[_type == "category" && niche == "trekking"] | order(title asc){
+  "trekking": *[_type == "category" && niche == "trekking" && !defined(parentCategory)] | order(title asc){
+    _id,
+    title,
+    slug,
+    niche,
+    description
+  }
+}
+`;
+
+export const SUBCATEGORIES_LIST_QUERY = /* groq */ `
+{
+  "subcategories": *[_type == "category" && defined(parentCategory)] | order(title asc){
     _id,
     title,
     slug,
@@ -73,14 +85,72 @@ export const GUIDES_LIST_QUERY = /* groq */ `
 }
 `;
 
+export const BLOG_LIST_QUERY = /* groq */ `
+{
+  "articles": *[_type == "blogArticle"] | order(publishedAt desc){
+    _id,
+    title,
+    slug,
+    excerpt,
+    publishedAt,
+    "authorName": author->name
+  }
+}
+`;
+
+export const BRANDS_LIST_QUERY = /* groq */ `
+{
+  "brands": *[_type == "brand"] | order(name asc){
+    _id,
+    name,
+    slug,
+    description,
+    website
+  }
+}
+`;
+
 export const CATEGORY_BY_SLUG_QUERY = /* groq */ `
-*[_type == "category" && slug.current == $slug][0]{
+*[_type == "category" && slug.current == $slug && !defined(parentCategory)][0]{
   _id,
   title,
   slug,
   niche,
   description,
   seo,
+  "relatedReviews": *[_type == "review" && references(^._id)] | order(publishedAt desc)[0...6]{
+    _id,
+    title,
+    slug,
+    score,
+    publishedAt,
+    verdict,
+    "productTitle": product->title
+  },
+  "relatedGuides": *[_type == "guide" && references(^._id)] | order(publishedAt desc)[0...6]{
+    _id,
+    title,
+    slug,
+    guideType,
+    excerpt,
+    publishedAt
+  }
+}
+`;
+
+export const SUBCATEGORY_BY_SLUG_QUERY = /* groq */ `
+*[_type == "category" && slug.current == $slug && defined(parentCategory)][0]{
+  _id,
+  title,
+  slug,
+  niche,
+  description,
+  seo,
+  "parentCategory": parentCategory->{
+    _id,
+    title,
+    slug
+  },
   "relatedReviews": *[_type == "review" && references(^._id)] | order(publishedAt desc)[0...6]{
     _id,
     title,
@@ -133,6 +203,47 @@ export const GUIDE_BY_SLUG_QUERY = /* groq */ `
     slug,
     niche,
     description
+  }
+}
+`;
+
+export const BLOG_BY_SLUG_QUERY = /* groq */ `
+*[_type == "blogArticle" && slug.current == $slug][0]{
+  _id,
+  title,
+  slug,
+  excerpt,
+  publishedAt,
+  updatedAt,
+  seo,
+  "author": author->{name}
+}
+`;
+
+export const BRAND_BY_SLUG_QUERY = /* groq */ `
+*[_type == "brand" && slug.current == $slug][0]{
+  _id,
+  name,
+  slug,
+  description,
+  website,
+  seo,
+  "relatedReviews": *[_type == "review" && product->brand->slug.current == ^.slug.current] | order(publishedAt desc)[0...8]{
+    _id,
+    title,
+    slug,
+    score,
+    publishedAt,
+    verdict,
+    "productTitle": product->title
+  },
+  "relatedGuides": *[_type == "guide" && count(productsMentioned[@->brand->slug.current == ^.slug.current]) > 0] | order(publishedAt desc)[0...8]{
+    _id,
+    title,
+    slug,
+    guideType,
+    excerpt,
+    publishedAt
   }
 }
 `;
