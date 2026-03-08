@@ -1,4 +1,8 @@
-import type { AffiliateLink, ClickEvent } from "@/lib/affiliate/types";
+import type {
+  AffiliateLink,
+  ClickEvent,
+  RedirectLogEvent,
+} from "@/lib/affiliate/types";
 
 type SupabaseConfig = {
   url: string;
@@ -109,5 +113,40 @@ export async function logAffiliateClick(event: ClickEvent): Promise<void> {
   if (!response.ok) {
     const body = await response.text();
     throw new Error(`Click event insert failed (${response.status}): ${body}`);
+  }
+}
+
+export async function logRedirectOutcome(
+  event: RedirectLogEvent,
+): Promise<void> {
+  const config = getSupabaseConfig();
+  if (!config) {
+    return;
+  }
+
+  const payload = {
+    slug: event.slug ?? null,
+    destination_url: event.destinationUrl ?? null,
+    merchant: event.merchant ?? null,
+    status_code: event.statusCode,
+    reason: event.reason,
+    resolver: event.resolver ?? "none",
+    referrer: event.referrer ?? null,
+    user_agent: event.userAgent ?? null,
+    ip_address: event.ipAddress ?? null,
+    created_at: event.createdAt,
+  };
+
+  const response = await supabaseFetch(config, "redirect_logs", {
+    method: "POST",
+    headers: {
+      Prefer: "return=minimal",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    const body = await response.text();
+    throw new Error(`Redirect log insert failed (${response.status}): ${body}`);
   }
 }

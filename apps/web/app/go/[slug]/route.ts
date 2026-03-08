@@ -9,6 +9,7 @@ import {
   isValidSlug,
   normalizeSlug,
   recordAffiliateClick,
+  recordRedirectOutcome,
   resolveAffiliateLink,
 } from "@/lib/affiliate/service";
 
@@ -31,13 +32,34 @@ export async function GET(
   const slug = normalizeSlug(rawSlug);
   const userAgent = request.headers.get("user-agent");
   const ipAddress = getClientIp(request.headers);
+  const referrer = request.headers.get("referer");
 
   if (isLikelyBotUserAgent(userAgent)) {
+    await recordRedirectOutcome({
+      slug,
+      statusCode: 403,
+      reason: "blocked-bot",
+      resolver: "none",
+      referrer,
+      userAgent,
+      ipAddress,
+    });
+
     return NextResponse.json({ error: "Blocked" }, { status: 403 });
   }
 
   const rateLimit = checkRateLimit(ipAddress);
   if (!rateLimit.allowed) {
+    await recordRedirectOutcome({
+      slug,
+      statusCode: 429,
+      reason: "rate-limited",
+      resolver: "none",
+      referrer,
+      userAgent,
+      ipAddress,
+    });
+
     return NextResponse.json(
       { error: "Rate limit exceeded" },
       {
@@ -51,15 +73,35 @@ export async function GET(
   }
 
   if (!slug || !isValidSlug(slug)) {
+    await recordRedirectOutcome({
+      slug,
+      statusCode: 307,
+      reason: "invalid-slug",
+      resolver: "none",
+      referrer,
+      userAgent,
+      ipAddress,
+    });
+
     return NextResponse.redirect(
       getFallbackUrl(request, "invalid-slug", slug),
       307,
     );
   }
 
-  const link = await resolveAffiliateLink(slug);
+  const { link, resolver } = await resolveAffiliateLink(slug);
 
   if (!link) {
+    await recordRedirectOutcome({
+      slug,
+      statusCode: 307,
+      reason: "missing-link",
+      resolver,
+      referrer,
+      userAgent,
+      ipAddress,
+    });
+
     return NextResponse.redirect(
       getFallbackUrl(request, "missing-link", slug),
       307,
@@ -69,6 +111,18 @@ export async function GET(
   const destinationUrl = getSafeDestination(link);
 
   if (!destinationUrl) {
+    await recordRedirectOutcome({
+      slug,
+      destinationUrl: link.destinationUrl,
+      merchant: link.merchant,
+      statusCode: 307,
+      reason: "unsafe-destination",
+      resolver,
+      referrer,
+      userAgent,
+      ipAddress,
+    });
+
     return NextResponse.redirect(
       getFallbackUrl(request, "unsafe-destination", slug),
       307,
@@ -79,7 +133,19 @@ export async function GET(
     slug,
     destinationUrl,
     merchant: link.merchant,
-    referrer: request.headers.get("referer"),
+    referrer,
+    userAgent,
+    ipAddress,
+  });
+
+  await recordRedirectOutcome({
+    slug,
+    destinationUrl,
+    merchant: link.merchant,
+    statusCode: 307,
+    reason: "redirect-success",
+    resolver,
+    referrer,
     userAgent,
     ipAddress,
   });

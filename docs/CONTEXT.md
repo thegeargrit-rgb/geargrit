@@ -167,3 +167,37 @@ geargrit/
 - AI must ALWAYS use PowerShell commands (never bash/Linux syntax)
 - AI must update CONTEXT.md and SESSION_LOG.md on GitHub after every milestone step
 - Local path: C:\thegeargrit\geargrit\
+
+---
+
+## Live Milestone Status (Authoritative)
+
+Last updated: 2026-03-08
+Based on checkpoints: `checkpoint/20260308-3` to `checkpoint/20260308-7`
+
+| Milestone                      | Version      | Status                 | Notes                                                                                                                                              |
+| ------------------------------ | ------------ | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| M1: Foundation & Design System | v0.1.0-alpha | COMPLETED              | Baseline app + design system + tooling done                                                                                                        |
+| M2: Core Content Engine        | v0.2.0-alpha | IN PROGRESS (Advanced) | CMS schemas, typed queries/loaders, dynamic/list pages, `/go/[slug]`, click tracking, admin health dashboard, admin auth, anti-abuse guard shipped |
+| M3: MVP Launch                 | v1.0.0       | NOT STARTED            | Next phase after M2 release checklist completes                                                                                                    |
+| M4-M9                          | v1.1.0+      | NOT STARTED            | Planned roadmap phases                                                                                                                             |
+
+### M2 Delivered So Far
+
+- Sanity schema baseline + reusable SEO/disclosure objects + affiliateLink document.
+- Typed GROQ query layer in `apps/web/lib/sanity`.
+- Homepage wired to live Sanity with fallbacks.
+- Category/review/guide listing + dynamic slug pages.
+- Affiliate redirect pipeline `/go/[slug]` with:
+  - Supabase lookup
+  - Sanity fallback lookup
+  - click logging
+  - anti-abuse baseline (bot + rate limit)
+- Founder admin route `/admin/affiliate-health`.
+- `/admin/*` protected via basic auth proxy.
+
+### M2 Remaining Before `v0.2.0-alpha`
+
+- Add `redirect_logs` table + optional write path.
+- Add automated tests for redirect flow.
+- Final release checklist + tag.

@@ -3,31 +3,39 @@
 Last updated: 2026-03-08
 Target version: v0.2.0-alpha
 
-## Sprint 1 (Now)
+## Sprint 1 (Completed)
 
-- [ ] Final taxonomy draft for badminton + trekking.
-- [ ] Sanity schema baseline (category, brand, author, product, review, guide).
-- [ ] Shared SEO object and disclosure block schema.
-- [ ] Base GROQ query helpers in `apps/web`.
+- [x] Final taxonomy draft for badminton + trekking (initial baseline).
+- [x] Sanity schema baseline (category, brand, author, product, review, guide).
+- [x] Shared SEO object and disclosure block schema.
+- [x] Base GROQ query helpers in `apps/web`.
+- [x] Typed Sanity loader layer and fallback behavior.
+- [x] Homepage wired to Sanity data with empty states.
 
-## Sprint 2
+## Sprint 2 (Completed)
 
-- [ ] Supabase schema baseline (`affiliate_links`, `click_events`, `redirect_logs`).
-- [ ] `/go/[slug]` route contract and lookup helper.
-- [ ] Seed sample entities (2 categories, 3 brands, 5 products, 3 reviews).
+- [x] Supabase schema baseline (`affiliate_links`, `click_events`).
+- [x] `/go/[slug]` route contract and lookup helper.
+- [x] Click logging pipeline to `click_events`.
+- [x] Seed sample entities (categories, brands, author, products, review, guide).
+- [x] Sanity fallback for affiliate link lookup.
 
-## Sprint 3
+## Sprint 3 (Completed)
 
-- [ ] Homepage wired to Sanity with fallback states.
-- [ ] Editorial empty states for incomplete sections.
-- [ ] Type-safe content loaders and query boundaries.
+- [x] Category/review/guide dynamic slug pages.
+- [x] Category/review/guide listing pages.
+- [x] Editorial empty states for missing content.
+- [x] Affiliate health founder dashboard (`/admin/affiliate-health`).
+- [x] Admin auth gate via `proxy.ts` for `/admin/*`.
+- [x] Anti-abuse baseline for `/go/[slug]` (bot guard + rate limit).
+
+## M2 Remaining (Before Release Tag)
+
+- [ ] Add `redirect_logs` table and integrate optional write path.
+- [ ] Add basic automated tests for `/go/[slug]` happy path + rate limit behavior.
+- [ ] Add a small migration/runbook doc for Supabase setup from scratch.
+- [ ] Final M2 release QA pass and tag `v0.2.0-alpha`.
 
 ## Current Session Next Build Target
 
-Start with: taxonomy + schema baseline.
-
-Acceptance criteria:
-
-- At least 6 core schema types active in Studio.
-- Validation on required editorial fields.
-- Slug strategy defined and enforced in schema.
+- Add `/go/[slug]` test coverage and finalize release checklist for M2.

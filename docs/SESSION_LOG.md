@@ -122,3 +122,46 @@ Copy this template and fill it in:
 ### Blockers / Issues
 
 - Keep file naming and import casing consistent (Windows is permissive, CI/Linux is strict).
+
+## Session 3 - 2026-03-08
+
+**Duration:** ~5 hours  
+**Milestone:** M2 - Core Content Engine (Advanced in progress)  
+**Branch:** main
+
+### What We Did
+
+- Implemented typed Sanity query/client/loader layer in `apps/web/lib/sanity`.
+- Wired homepage to live CMS data with fallback states.
+- Built listing pages and dynamic slug pages for categories, reviews, and guides.
+- Built and validated `/go/[slug]` redirect contract with Supabase lookup and click logging.
+- Added Sanity fallback for affiliate link resolution.
+- Added anti-abuse protections for redirect route (bot filter + per-IP rate limit).
+- Added founder dashboard `/admin/affiliate-health` for click/mapping diagnostics.
+- Protected `/admin/*` with Basic Auth via `proxy.ts`.
+- Stabilized project workflows: command fixes, npm config cleanup, checkpoint discipline.
+
+### Decisions Made
+
+- M2 is materially in progress and should be treated as advanced stage.
+- Keep redirect flow resilient: lookup fallback and non-blocking click log behavior.
+- Secure admin routes by default before wider deployment.
+
+### Files Created/Modified (highlights)
+
+- `apps/web/lib/sanity/*`
+- `apps/web/app/{categories,guides,reviews}/...`
+- `apps/web/app/go/[slug]/route.ts`
+- `apps/web/lib/affiliate/*`
+- `apps/web/app/admin/affiliate-health/page.tsx`
+- `apps/web/proxy.ts`
+- `geargrit-sanity/schemaTypes/*`
+- `packages/db/migrations/20260308_affiliate_redirect_baseline.sql`
+
+### Next Session Should Start With
+
+- Add automated tests for `/go/[slug]` and finalize M2 release checklist.
+
+### Blockers / Issues
+
+- None critical. Ensure env values are present per environment before release.
