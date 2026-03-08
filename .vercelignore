@@ -1,0 +1,17 @@
+# Dependencies
+node_modules
+**/node_modules
+
+# Build outputs and caches
+.next
+**/.next
+.turbo
+**/.turbo
+
+# Local env and logs
+.env
+.env.*
+*.log
+
+# Git
+.git

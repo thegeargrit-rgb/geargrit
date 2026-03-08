@@ -37,8 +37,8 @@ function parseBasicAuth(
 }
 
 export function proxy(request: NextRequest): NextResponse {
-  const expectedUser = process.env.ADMIN_BASIC_USER;
-  const expectedPass = process.env.ADMIN_BASIC_PASS;
+  const expectedUser = process.env.ADMIN_BASIC_AUTH_USER;
+  const expectedPass = process.env.ADMIN_BASIC_AUTH_PASS;
 
   if (!expectedUser || !expectedPass) {
     return new NextResponse("Admin auth is not configured", {
