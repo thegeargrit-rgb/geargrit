@@ -25,7 +25,7 @@ Use this prompt to start every session:
 ## 🛠️ TECH STACK (DECIDED — DO NOT CHANGE WITHOUT ADR)
 | Layer | Choice |
 |---|---|
-| Framework | Next.js 15 (App Router, TypeScript strict) |
+| Framework | Next.js 16 (App Router, TypeScript strict) |
 | Styling | Tailwind CSS v4 + shadcn/ui |
 | CMS | Sanity.io v3 |
 | Database | Supabase (PostgreSQL) |
@@ -38,20 +38,22 @@ Use this prompt to start every session:
 | Email | Resend + React Email |
 | Testing | Vitest (unit) + Playwright (E2E) |
 | CI/CD | GitHub Actions → Vercel |
-| Package Manager | pnpm |
-| Monorepo | Turborepo |
+| Package Manager | pnpm@10.31.0 |
+| Monorepo | Turborepo v2 |
 
 ---
 
-## 📁 REPO STRUCTURE (TARGET)
+## 📁 REPO STRUCTURE (CURRENT — AS OF 2026-03-08)
 ```
 geargrit/
-├── apps/web/              # Next.js 15 app
-├── packages/db/           # Supabase migrations + generated types
-├── packages/config/       # Shared ESLint, TS config
+├── apps/
+│   └── web/               # Next.js 16 app (App Router, TypeScript, Tailwind v4)
+├── packages/
+│   ├── db/                # Supabase migrations + generated types (shell)
+│   └── config/            # Shared ESLint, TS config (shell)
 ├── docs/                  # ADRs, context, session logs
 ├── .github/               # CI/CD workflows, PR template
-└── scripts/               # Seed scripts, sitemap generator
+└── scripts/               # Seed scripts, sitemap generator (coming soon)
 ```
 
 ---
@@ -74,9 +76,9 @@ geargrit/
 ## ✅ M1 TASK CHECKLIST
 - [x] Create GitHub repo (geargrit)
 - [x] Push CONTEXT.md, SESSION_LOG.md, ADR-001
-- [ ] Setup Next.js 15 app (App Router, TypeScript strict, pnpm)
-- [ ] Setup Turborepo monorepo
-- [ ] Install + configure Tailwind CSS v4
+- [x] Setup Next.js 16 app (App Router, TypeScript strict, pnpm) ✅ 2026-03-08
+- [x] Setup Turborepo monorepo ✅ 2026-03-08
+- [x] Install + configure Tailwind CSS v4 ✅ 2026-03-08 (auto-installed with Next.js 16)
 - [ ] Install + configure shadcn/ui
 - [ ] Setup Sanity.io project + studio
 - [ ] Setup Supabase project + base migrations
@@ -119,6 +121,10 @@ geargrit/
 | 2026-03-08 | Chose Sanity.io over Contentful | Better free tier, GROQ queries, structured content |
 | 2026-03-08 | Unified domain (geargrit.com) | Domain authority compounds across both niches |
 | 2026-03-08 | pnpm + Turborepo | Fast installs, monorepo for future packages/db |
+| 2026-03-08 | Next.js version is 16.1.6 | create-next-app scaffolded v16 (latest stable) — keeping it |
+| 2026-03-08 | Tailwind v4 auto-installed | Next.js 16 scaffold included Tailwind v4 by default |
+| 2026-03-08 | turbo.json uses tasks not pipeline | Turbo v2 breaking change — renamed pipeline to tasks |
+| 2026-03-08 | packageManager field required | Turbo v2 requires packageManager in root package.json |
 
 ---
 
@@ -128,8 +134,6 @@ geargrit/
 - [ ] Create Vercel account (if not done)
 - [ ] Create Supabase account (if not done)
 - [ ] Create Sanity.io account (if not done)
-- [ ] Install Node.js 20+ locally
-- [ ] Install pnpm globally: npm install -g pnpm
 
 ---
 
@@ -143,3 +147,6 @@ geargrit/
 - FTC disclosure must appear on every page that has affiliate links
 - Keep Lighthouse scores: Perf ≥ 90, A11y ≥ 95, SEO = 100
 - Stack is LOCKED — no changes without creating an ADR in docs/decisions/
+- AI must ALWAYS use PowerShell commands (never bash/Linux syntax)
+- AI must update CONTEXT.md and SESSION_LOG.md on GitHub after every milestone step
+- Local path: C:\thegeargrit\geargrit\
