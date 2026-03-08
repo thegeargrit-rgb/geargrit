@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
@@ -5,8 +6,15 @@ import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { ScoreBadge } from "@/components/ui/ScoreBadge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { buildPageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import { getReviewsListData } from "@/lib/sanity/loaders";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Reviews",
+  description: "Independent review scorecards with pros, cons, and verdicts.",
+  path: "/reviews",
+});
 
 export default async function ReviewsPage() {
   const data = await getReviewsListData();

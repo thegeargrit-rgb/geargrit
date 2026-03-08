@@ -5,6 +5,7 @@ import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
 import { Card } from "@/components/ui/Card";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { absoluteUrl } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import { getGuidePageData } from "@/lib/sanity/loaders";
 
@@ -15,12 +16,28 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const guide = await getGuidePageData(slug);
+  const path = `/guides/${encodeURIComponent(slug)}`;
+  const canonical = absoluteUrl(path);
 
-  if (!guide) return { title: "Guide Not Found | GearGrit" };
+  if (!guide) {
+    return {
+      title: "Guide Not Found",
+      alternates: { canonical },
+      robots: { index: false, follow: false },
+    };
+  }
 
   return {
-    title: guide.seo?.metaTitle ?? `${guide.title} | GearGrit Guide`,
+    title: guide.seo?.metaTitle ?? guide.title,
     description: guide.seo?.metaDescription ?? guide.excerpt,
+    alternates: { canonical },
+    openGraph: {
+      title: guide.seo?.metaTitle ?? guide.title,
+      description: guide.seo?.metaDescription ?? guide.excerpt ?? "",
+      url: canonical,
+      siteName: "GearGrit",
+      type: "article",
+    },
   };
 }
 

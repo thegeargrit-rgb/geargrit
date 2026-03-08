@@ -5,6 +5,7 @@ import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
 import { Card } from "@/components/ui/Card";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { absoluteUrl } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import { getCategoryPageData } from "@/lib/sanity/loaders";
 
@@ -15,12 +16,28 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const category = await getCategoryPageData(slug);
+  const path = `/categories/${encodeURIComponent(slug)}`;
+  const canonical = absoluteUrl(path);
 
-  if (!category) return { title: "Category Not Found | GearGrit" };
+  if (!category) {
+    return {
+      title: "Category Not Found",
+      alternates: { canonical },
+      robots: { index: false, follow: false },
+    };
+  }
 
   return {
-    title: category.seo?.metaTitle ?? `${category.title} | GearGrit`,
+    title: category.seo?.metaTitle ?? category.title,
     description: category.seo?.metaDescription ?? category.description,
+    alternates: { canonical },
+    openGraph: {
+      title: category.seo?.metaTitle ?? category.title,
+      description: category.seo?.metaDescription ?? category.description ?? "",
+      url: canonical,
+      siteName: "GearGrit",
+      type: "website",
+    },
   };
 }
 

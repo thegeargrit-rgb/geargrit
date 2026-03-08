@@ -1,10 +1,18 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
 import { Card } from "@/components/ui/Card";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { buildPageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import { getCategoriesListData } from "@/lib/sanity/loaders";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Categories",
+  description: "Explore GearGrit content by niche and category.",
+  path: "/categories",
+});
 
 export default async function CategoriesPage() {
   const data = await getCategoriesListData();

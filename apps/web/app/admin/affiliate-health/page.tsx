@@ -1,8 +1,17 @@
+import type { Metadata } from "next";
 import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
+import { buildPageMetadata } from "@/lib/seo";
 import { getAffiliateHealthReport } from "@/lib/affiliate/health";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Affiliate Health",
+  description: "Internal dashboard for affiliate mapping quality and click activity.",
+  path: "/admin/affiliate-health",
+  noIndex: true,
+});
 
 export default async function AffiliateHealthPage() {
   const report = await getAffiliateHealthReport();

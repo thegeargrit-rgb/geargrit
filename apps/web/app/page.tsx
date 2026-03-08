@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
@@ -5,8 +6,16 @@ import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { ScoreBadge } from "@/components/ui/ScoreBadge";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { buildPageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import { getHomePageData } from "@/lib/sanity/loaders";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Best Badminton & Trekking Gear Reviews",
+  description:
+    "Expert reviews and buying guides for badminton and trekking gear. Find the best equipment for your game and adventures.",
+  path: "/",
+});
 
 export default async function HomePage() {
   const data = await getHomePageData();

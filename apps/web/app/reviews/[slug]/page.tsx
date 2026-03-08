@@ -4,6 +4,7 @@ import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
 import { Card } from "@/components/ui/Card";
 import { ScoreBadge } from "@/components/ui/ScoreBadge";
+import { absoluteUrl } from "@/lib/seo";
 import { getReviewPageData } from "@/lib/sanity/loaders";
 
 type Props = {
@@ -13,12 +14,28 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const review = await getReviewPageData(slug);
+  const path = `/reviews/${encodeURIComponent(slug)}`;
+  const canonical = absoluteUrl(path);
 
-  if (!review) return { title: "Review Not Found | GearGrit" };
+  if (!review) {
+    return {
+      title: "Review Not Found",
+      alternates: { canonical },
+      robots: { index: false, follow: false },
+    };
+  }
 
   return {
-    title: review.seo?.metaTitle ?? `${review.title} | GearGrit Review`,
+    title: review.seo?.metaTitle ?? review.title,
     description: review.seo?.metaDescription ?? review.verdict,
+    alternates: { canonical },
+    openGraph: {
+      title: review.seo?.metaTitle ?? review.title,
+      description: review.seo?.metaDescription ?? review.verdict ?? "",
+      url: canonical,
+      siteName: "GearGrit",
+      type: "article",
+    },
   };
 }
 
