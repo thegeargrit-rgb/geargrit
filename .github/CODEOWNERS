@@ -1,0 +1,14 @@
+# CODEOWNERS for GearGrit.com
+# All files owned by the founder by default
+* @rajasthanindienreise
+
+# Docs require founder review
+/docs/ @rajasthanindienreise
+
+# CI/CD workflows require founder review
+/.github/ @rajasthanindienreise
+
+# Core app files require founder review
+/apps/web/app/ @rajasthanindienreise
+/apps/web/components/ @rajasthanindienreise
+/packages/db/ @rajasthanindienreise
